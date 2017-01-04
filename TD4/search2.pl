@@ -72,7 +72,7 @@ hh(State, Value) :-
    write(h(State, Value)), nl,
    abort.
 
-h(_,1).  % default value (must be redefined for each problem)                        
+h(_,1).  % default value (must be redefined for each problem)   % Déja présent dans map.pl                    
 
 f([X|T],F) :-                   % for A* search
     reverse_path_cost([X|T],G), % calculate G
@@ -89,5 +89,12 @@ reverse_path_cost([A,B|T],Cost) :-
 %--------------------------------------------------------------%
 
 
-wrq(Q) :- length(Q,N), writeln(N).
+wrq(Q) :- length(Q,N), write(N), write(' ').
 
+solve_best(Start,Goal,SolPath,ExploredNodes,Cost) :-
+  best_first([[Start]],Goal,SolPath,ExploredNodes),
+  reverse_path_cost(SolPath,Cost).
+
+solve_a(Start,Goal,SolPath,ExploredNodes,Cost) :-
+  a_star([[Start]],Goal,SolPath,ExploredNodes),
+  reverse_path_cost(SolPath,Cost).
