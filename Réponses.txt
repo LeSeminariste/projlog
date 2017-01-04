@@ -1,0 +1,146 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%   Colonel Pierre-Henri      %%
+%%   Réponses TD4 prolog       %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+%%   Exercice 1   %%
+%%%%%%%%%%%%%%%%%%%%
+
+  2/
+On a des solutions à partir de Proflimite = 18
+
+Les temps d'execution semblent cohérents :
+
+5   ->  0.2 sec
+10  ->  0.7 sec
+12  ->  4.9 sec
+17  ->  2 min 25 sec
+
+
+  4/
+1:  count(N,Lim) :-                                     %% Déclaration du prédicat count
+2:    time(( findall( _,                                %% Compte le temps d'execution pour trouver toutes les instances générées
+3:      resoudre_avec_profondeur_limite( S, N, Lim ),   %% pour résoudre notre algo avec profondeur limitée
+4:      L ),                                            %% avec l : liste des cas possibles
+5:    length( L, T ), write_ln(T) )).                   %% trouve la liste et affiche sa taille (nombre de cas possibles)
+
+
+  5/
+
+?- count(N,5).
+Searching...
+0
+% 153,372 inferences, 0.012 CPU in 0.019 seconds (66% CPU, 12570879 Lips)
+true.
+
+?- count(N,10).
+Searching...
+0
+% 6,632,690 inferences, 0.452 CPU in 0.452 seconds (100% CPU, 14681358 Lips)
+true.
+
+?- count(N,12).
+Searching...
+0
+% 69,993,714 inferences, 4.615 CPU in 4.619 seconds (100% CPU, 15166914 Lips)
+true.
+
+?- count(N,13).
+Searching...
+0
+% 106,292,466 inferences, 7.014 CPU in 7.021 seconds (100% CPU, 15154510 Lips)
+true.
+
+
+  6/ 
+L'augmentation du temps d'execution semble exponentielle, ce qui est normal car le nombre "d'inferences" est de plus en plus important. Donc pour 17, il devrait être beaucoup plus long.
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%   Exercice 2   %%
+%%%%%%%%%%%%%%%%%%%%
+
+
+  2/ 
+L'algo utilise le principe suivant : on recherche tous les noeuds suivants le noeud actuel et on les ajoute à la pile.
+Pour chaque noeud ajouté, on rappelle la fonction de recherche. On va donc chercher à chaque fois les noeuds plus "profonds" au noeud actuel.
+Un pile est particulièrement adaptée aux alogorithmes de parcours en profondeur.
+
+  3/
+depth_first([[1]],9,P,N).
+NewPaths = [[2,1],[3,1]]
+NewQueue = [[2,1],[3,1]]
+NewPaths = [[4,2,1],[5,2,1]]
+NewQueue = [[4,2,1],[5,2,1],[3,1]]
+NewPaths = [[8,4,2,1]]
+NewQueue = [[8,4,2,1],[5,2,1],[3,1]]
+NewPaths = [[9,8,4,2,1]]
+NewQueue = [[9,8,4,2,1],[5,2,1],[3,1]]
+P = [9, 8, 4, 2, 1],
+N = 4 ;
+NewPaths = []
+NewQueue = [[5,2,1],[3,1]]
+NewPaths = []
+NewQueue = [[3,1]]
+NewPaths = [[6,3,1],[7,3,1]]
+NewQueue = [[6,3,1],[7,3,1]]
+NewPaths = [[8,6,3,1]]
+NewQueue = [[8,6,3,1],[7,3,1]]
+NewPaths = [[9,8,6,3,1]]
+NewQueue = [[9,8,6,3,1],[7,3,1]]
+P = [9, 8, 6, 3, 1],
+N = 9 ;
+NewPaths = []
+NewQueue = [[7,3,1]]
+NewPaths = [[9,7,3,1]]
+NewQueue = [[9,7,3,1]]
+P = [9, 7, 3, 1],
+N = 11 ;
+NewPaths = []
+NewQueue = []
+false.
+
+  4/
+NewPaths = [[2,1],[3,1]]
+NewQueue = [[2,1],[3,1]]
+NewPaths = [[4,2,1],[5,2,1]]
+NewQueue = [[3,1],[4,2,1],[5,2,1]]
+NewPaths = [[6,3,1],[7,3,1]]
+NewQueue = [[4,2,1],[5,2,1],[6,3,1],[7,3,1]]
+NewPaths = [[8,4,2,1]]
+NewQueue = [[5,2,1],[6,3,1],[7,3,1],[8,4,2,1]]
+NewPaths = []
+NewQueue = [[6,3,1],[7,3,1],[8,4,2,1]]
+NewPaths = [[8,6,3,1]]
+NewQueue = [[7,3,1],[8,4,2,1],[8,6,3,1]]
+NewPaths = [[9,7,3,1]]
+NewQueue = [[8,4,2,1],[8,6,3,1],[9,7,3,1]]
+NewPaths = [[9,8,4,2,1]]
+NewQueue = [[8,6,3,1],[9,7,3,1],[9,8,4,2,1]]
+NewPaths = [[9,8,6,3,1]]
+NewQueue = [[9,7,3,1],[9,8,4,2,1],[9,8,6,3,1]]
+P = [9, 7, 3, 1],
+N = 9 ;
+NewPaths = []
+NewQueue = [[9,8,4,2,1],[9,8,6,3,1]]
+P = [9, 8, 4, 2, 1],
+N = 10 ;
+NewPaths = []
+NewQueue = [[9,8,6,3,1]]
+P = [9, 8, 6, 3, 1],
+N = 11 ;
+NewPaths = []
+NewQueue = []
+false.
+
+  6/
+Le nouvel arc ne change pas le résultat (ni en profondeur, ni en largeur). En effet, dans le prédicat extend, "\+ member" exige que le sommet trouvé ne soit pas dans le chemin. Donc lorsque l'algo arrive au sommet 4, il ne propose pas de chemin vers 1.
+
+  7/
+Actuellement, l'algo ne prend pas en compte le temps pour passer d'un sommet à un autre. Donc on ne peut toujours pas savoir quel est le chemin le plus court.
+
+  8/
+L'algorithme de parcours de graphe en profondeur est beacoup plus efficace en terme d'utilisation de mémoire car il libère la mémoire après chaque chemin trouvé contrairement à l'algo de recherche en largeur.
+
+  9/
