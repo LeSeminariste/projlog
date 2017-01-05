@@ -419,3 +419,80 @@ En comparant avec les algos non informés, on remarque que le nombre de noeuds e
 %%%%%%%%%%%%%%%%%%%%
 %%   Exercice 4   %%
 %%%%%%%%%%%%%%%%%%%%
+
+  16/
+Le fichier blind-search2 contient : 
+      un algo de recherche en profondeur avec pile, 
+      un algo de recherche en profondeur version prolog
+      un algo de recherche en largeur
+      un algo de recherche en profondeur limitée
+      un algo de recherche en profondeur version itérative
+      un algo de recherche en coût uniforme (Dijkstra)
+
+  17/
+uni_cost([[arad]],bucharest,P,N).
+P = [bucharest, pitesti, rimnicu, sibiu, arad],
+N = 17 ;
+P = [bucharest, fagaras, sibiu, arad],
+N = 18 ;
+P = [bucharest, pitesti, rimnicu, sibiu, oradea, zerind, arad],
+N = 32 ;
+P = [bucharest, pitesti, craiova, rimnicu, sibiu, arad],
+N = 34 ;
+P = [bucharest, fagaras, sibiu, oradea, zerind, arad],
+N = 35 ;
+P = [bucharest, pitesti, craiova, dobreta, mehadia, lugoj, timisoara, arad],
+N = 63 ;
+P = [bucharest, pitesti, craiova, rimnicu, sibiu, oradea, zerind, arad],
+N = 68 ;
+P = [bucharest, pitesti, rimnicu, craiova, dobreta, mehadia, lugoj, timisoara, arad],
+N = 89 ;
+P = [bucharest, fagaras, sibiu, rimnicu, craiova, dobreta, mehadia, lugoj, timisoara|...],
+N = 127 ;
+P = [bucharest, fagaras, sibiu, rimnicu, pitesti, craiova, dobreta, mehadia, lugoj|...],
+N = 142 ;
+false.
+
+On remarque tout d'abord que cet algo explore beaucoup plus de noeuds que les algos précédents. Cependant il permet de trouver le chemin le plus court en explorant le minimum de noeuds. Même si les algos A* et meilleur d'abord sont plus interessants en terme de ressources, ils ont besoin d'heuristique pour être performants.
+
+
+  18/
+?- iterative_deepening([[arad]],bucharest,P).
+
+depth=1
+depth=2
+depth=3
+depth=4
+P = [bucharest, fagaras, sibiu, arad] ;
+
+depth=5
+P = [bucharest, fagaras, sibiu, arad] ;
+P = [bucharest, pitesti, rimnicu, sibiu, arad] ;
+
+depth=6
+P = [bucharest, fagaras, sibiu, arad, zerind, arad] ;
+P = [bucharest, fagaras, sibiu, oradea, zerind, arad] ;
+P = [bucharest, fagaras, sibiu, arad, sibiu, arad] ;
+P = [bucharest, fagaras, sibiu, oradea, sibiu, arad] ;
+P = [bucharest, fagaras, sibiu, fagaras, sibiu, arad] ;
+P = [bucharest, fagaras, sibiu, arad] ;
+P = [bucharest, fagaras, bucharest, fagaras, sibiu, arad] ;
+P = [bucharest, pitesti, bucharest, fagaras, sibiu, arad] ;
+P = [bucharest, giurgiu, bucharest, fagaras, sibiu, arad] ;
+P = [bucharest, urziceni, bucharest, fagaras, sibiu, arad] ;
+P = [bucharest, fagaras, sibiu, rimnicu, sibiu, arad] ;
+P = [bucharest, pitesti, rimnicu, sibiu, arad] ;
+P = [bucharest, pitesti, craiova, rimnicu, sibiu, arad] ;
+P = [bucharest, fagaras, sibiu, arad, timisoara, arad] ;
+
+Cet algo itératif permet de trouver tous les chemins possibles mais il ne donne pas le meilleur en terme de coût (mais il donne la profondeur à chaque étape).
+De plus on remarque qu'il fonctionne profonfeur par profondeur tout comme l'algo de recherche en largeur. On peut donc en déduire que la complexité est similaire. Par contre l'utilisation de la mémoire est bien meilleur que l'algo de recherche en largeur. Elle semble similaire à celle de l'algo de recherche en profondeur.
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%   Exercice 5   %%
+%%%%%%%%%%%%%%%%%%%%
+
+
+  1/
+
