@@ -55,7 +55,7 @@ arc(board(A,B,C,D,E,F,G,H,0),board(A,B,C,D,E,F,G,0,H),2).
 % For another goal Change the defnition below
 
 h(board(A,B,C,D,E,F,G,H,I),W) :-
-    distance_manhattan(board(A,B,C,D,E,F,G,H,I),W).
+    distanceManhattan(board(A,B,C,D,E,F,G,H,I),W).
 
 distance([],[],0).
 distance([X|T],[X|V],W) :- !,
@@ -64,7 +64,7 @@ distance([_|T],[_|V],W) :-
     distance(T,V,W1),
     W is W1+1.
 
-distance_manhattan(board(A,B,C,D,E,F,G,H,I),W) :-
+distanceManhattan(board(A,B,C,D,E,F,G,H,I),W) :-
 	d0(A,W0),
 	d1(B,W1),
 	d2(C,W2),
