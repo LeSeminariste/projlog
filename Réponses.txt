@@ -494,5 +494,44 @@ De plus on remarque qu'il fonctionne profonfeur par profondeur tout comme l'algo
 %%%%%%%%%%%%%%%%%%%%
 
 
-  1/
+  19/
+
+
+  20/
+?- beam([[arad]],bucharest,1,P,N).
+P = [bucharest, fagaras, sibiu, arad],
+N = 3 ;
+false.
+
+?- beam([[arad]],bucharest,10,P,N).
+P = [bucharest, fagaras, sibiu, arad],
+N = 3 ;
+P = [bucharest, pitesti, rimnicu, sibiu, arad],
+N = 12 ;
+P = [bucharest, pitesti, craiova, rimnicu, sibiu, arad],
+N = 18 ;
+false.
+
+?- beam([[arad]],bucharest,100,P,N).
+P = [bucharest, fagaras, sibiu, arad],
+N = 3 ;
+P = [bucharest, pitesti, rimnicu, sibiu, arad],
+N = 12 ;
+P = [bucharest, pitesti, craiova, rimnicu, sibiu, arad],
+N = 18 ;
+P = [bucharest, pitesti, craiova, dobreta, mehadia, lugoj, timisoara, arad],
+N = 57 ;
+P = [bucharest, pitesti, rimnicu, craiova, dobreta, mehadia, lugoj, timisoara, arad],
+N = 65 ;
+P = [bucharest, fagaras, sibiu, rimnicu, craiova, dobreta, mehadia, lugoj, timisoara|...],
+N = 78 ;
+P = [bucharest, fagaras, sibiu, rimnicu, pitesti, craiova, dobreta, mehadia, lugoj|...],
+N = 88 ;
+P = [bucharest, fagaras, sibiu, oradea, zerind, arad],
+N = 120 ;
+P = [bucharest, pitesti, rimnicu, sibiu, oradea, zerind, arad],
+N = 129 ;
+P = [bucharest, pitesti, craiova, rimnicu, sibiu, oradea, zerind, arad],
+N = 135 ;
+false.
 

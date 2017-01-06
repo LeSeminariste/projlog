@@ -66,13 +66,22 @@ path_cost([A,B|T],Cost) :-
 %         solve_b(+Start, +Goal, -SolPath, -ExploredNodes, -Cost)
 %--------------------------------------------------------------%
 solve_b(Start,Goal,SolPath,ExploredNodes,Cost) :-
-  breadth_first(Start,Goal,SolPath,ExploredNodes),
+  breadth_first([[Start]],Goal,SolPath,ExploredNodes),
+  reversel(SolPath,Reversedlist),
+  path_cost(Reversedlist,Cost).
+
+solve_d(Start,Goal,SolPath,ExploredNodes,Cost) :-
+  depth_first([[Start]],Goal,SolPath,ExploredNodes),
+  reversel(SolPath,Reversedlist),
+  path_cost(Reversedlist,Cost).
   
 
 %--------------------------------------------------------------%
 %   Reversing list                                             %
-%   call: reverse_list(+List_i, -List_F).                      %
+%   call: reversel(+List_i, -List_F).                      %
 %--------------------------------------------------------------%
-reverse_list([],L).
-reverse_list([A|B],C) :- reverse_list(A,[A|C]).
+reversel([],[]).
+reversel([X|Xs],R) :-
+  reversel(Xs,T),
+  append(T,[X],R).                      
 
